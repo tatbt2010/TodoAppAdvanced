@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class ListItemFragment extends Fragment{
 
-    ArrayList<AdapterItems> arrayList;
+    ArrayList<Task> arrayList;
     ListView listView;
 
     @Override
@@ -28,14 +28,14 @@ public class ListItemFragment extends Fragment{
         View view = inflater.inflate(R.layout.layout_listitem, container, false);
 
         listView = (ListView) view.findViewById(R.id.ListItem);
-        arrayList = new ArrayList<AdapterItems>();
+        arrayList = new ArrayList<Task>();
         MyCustomAdapter myCustomAdapter;
 
-        arrayList.add(new AdapterItems("code nua code mai","High"));
-        arrayList.add(new AdapterItems("code nua code mai 1","Normal"));
-        arrayList.add(new AdapterItems("code nua code mai 2","Low"));
+        arrayList.add(new Task("code nua code mai","High"));
+        arrayList.add(new Task("code nua code mai 1","Normal"));
+        arrayList.add(new Task("code nua code mai 2","Low"));
 
-        for (AdapterItems a:arrayList) {
+        for (Task a:arrayList) {
             Log.i("My log:",""+a.getItemTitle()+","+a.getPriorityLevel());
         }
         myCustomAdapter = new MyCustomAdapter(arrayList);
@@ -44,11 +44,11 @@ public class ListItemFragment extends Fragment{
         return view;
     }
     private class MyCustomAdapter extends BaseAdapter {
-        public ArrayList<AdapterItems> listnewsDataAdapter;
+        public ArrayList<Task> listnewsDataAdapter;
 
 
 
-        public MyCustomAdapter(ArrayList<AdapterItems> listnewsDataAdapter){
+        public MyCustomAdapter(ArrayList<Task> listnewsDataAdapter){
             this.listnewsDataAdapter = listnewsDataAdapter;
 
 
@@ -73,7 +73,7 @@ public class ListItemFragment extends Fragment{
             LayoutInflater mInflater = getActivity().getLayoutInflater();
             View myView = mInflater.inflate(R.layout.layout_item,null);
 
-            final AdapterItems s = listnewsDataAdapter.get(position);
+            final Task s = listnewsDataAdapter.get(position);
 
             TextView txtitemTitle = (TextView) myView.findViewById(R.id.itemTitle);
             txtitemTitle.setText(s.getItemTitle());

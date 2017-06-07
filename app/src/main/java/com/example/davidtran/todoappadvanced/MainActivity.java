@@ -1,6 +1,5 @@
 package com.example.davidtran.todoappadvanced;
 
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -28,7 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<AdapterItems> arrayList;
+    ArrayList<Task> arrayList;
     ListView listView;
 
     @Override
@@ -37,19 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         showListItem();
-        /*listView = (ListView) findViewById(R.id.ListItem);
-        arrayList = new ArrayList<AdapterItems>();
-        MyCustomAdapter myCustomAdapter;
-
-        arrayList.add(new AdapterItems("code nua code mai","High"));
-        arrayList.add(new AdapterItems("code nua code mai 1","Normal"));
-        arrayList.add(new AdapterItems("code nua code mai 2","Low"));
-
-        for (AdapterItems a:arrayList) {
-            Log.i("My log:",""+a.getItemTitle()+","+a.getPriorityLevel());
-        }
-        myCustomAdapter = new MyCustomAdapter(arrayList);
-        listView.setAdapter(myCustomAdapter);*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private class MyCustomAdapter extends BaseAdapter {
-        public ArrayList<AdapterItems> listnewsDataAdapter;
+        public ArrayList<Task> listnewsDataAdapter;
 
 
 
-        public MyCustomAdapter(ArrayList<AdapterItems> listnewsDataAdapter){
+        public MyCustomAdapter(ArrayList<Task> listnewsDataAdapter){
             this.listnewsDataAdapter = listnewsDataAdapter;
 
 
@@ -155,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater mInflater = getLayoutInflater();
             View myView = mInflater.inflate(R.layout.layout_item,null);
 
-            final AdapterItems s = listnewsDataAdapter.get(position);
+            final Task s = listnewsDataAdapter.get(position);
 
             TextView txtitemTitle = (TextView) myView.findViewById(R.id.itemTitle);
             txtitemTitle.setText(s.getItemTitle());

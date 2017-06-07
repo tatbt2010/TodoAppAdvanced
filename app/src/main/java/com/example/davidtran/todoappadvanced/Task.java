@@ -9,10 +9,11 @@ import java.util.Date;
  * Created by davidtran on 5/25/17.
  */
 
-public class AdapterItems extends AppCompatActivity{
+public class Task extends AppCompatActivity{
 
+    private int _ID;
     private String ItemTitle;
-    private String Description;
+
     private Date DueDate;
     private String Detail;
     private String PriorityLevel;
@@ -20,10 +21,6 @@ public class AdapterItems extends AppCompatActivity{
 
     public String getItemTitle() {
         return ItemTitle;
-    }
-
-    public String getDescription() {
-        return Description;
     }
 
     public Date getDueDate() {
@@ -44,9 +41,8 @@ public class AdapterItems extends AppCompatActivity{
 
 
 
-    public AdapterItems(){
+    public Task(){
         ItemTitle = "";
-        Description = "";
        // DueDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
           Detail = "";
           PriorityLevel="";
@@ -54,7 +50,7 @@ public class AdapterItems extends AppCompatActivity{
     }
 
 
-    public AdapterItems(String ItemTitle,String PriorityLevel) {
+    public Task(String ItemTitle, String PriorityLevel) {
 
         this.ItemTitle = ItemTitle;
         this.PriorityLevel = PriorityLevel;

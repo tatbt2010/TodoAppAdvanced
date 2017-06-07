@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -20,7 +21,9 @@ import android.widget.ListView;
 public class EditItemFragment extends Fragment {
 
     Button setDateBtn;
+    Button setTimeBtn;
     ListView listView;
+    EditText txtDetail;
 
    /* @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,15 +41,14 @@ public class EditItemFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.layout_edititem, container, false);
-        setHasOptionsMenu(true);
-        setDateBtn = (Button) view.findViewById(R.id.setDateBtn);
-        listView = (ListView) view.findViewById(R.id.ListItem);
 
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = 0;
-        listView.setLayoutParams(params);
-        listView.requestLayout();
+        View view= inflater.inflate(R.layout.layout_edititem, container, false);
+        setDateBtn = (Button) view.findViewById(R.id.setDateBtn);
+        setTimeBtn = (Button) view.findViewById(R.id.setTimeBtn);
+        listView = (ListView) view.findViewById(R.id.ListItem);
+        txtDetail = (EditText) view.findViewById(R.id.txtTaskDetail);
+
+        setHasOptionsMenu(true);
 
 
         setDateBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,14 @@ public class EditItemFragment extends Fragment {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(ft, "dialog");
 
+            }
+        });
+        setTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.show(ft, "dialog");
             }
         });
         return view;
