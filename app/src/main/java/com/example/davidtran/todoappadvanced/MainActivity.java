@@ -29,10 +29,17 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Task> arrayList;
     ListView listView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       // invalidateOptionsMenu();
+        /*MenuItem item = (MenuItem) findViewById(R.id.SaveItem);
+        item.setVisible(false);*/
+        //item = (MenuItem) findViewById(R.id.CancelEdit);
+        //item.setVisible(false);
 
         showListItem();
     }
@@ -40,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mainmenu,menu);
+        /*MenuItem item = (MenuItem) findViewById(R.id.SaveItem);
+        item.setVisible(false);*/
+
+        MenuItem saveItem = menu.findItem(R.id.SaveItem);
+        saveItem.setVisible(false);
+
+        MenuItem cancelItem = menu.findItem(R.id.CancelEdit);
+        cancelItem.setVisible(false);
+
         MenuItem searchItem = menu.findItem(R.id.Search);
 
         try {
@@ -164,4 +180,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment).commit();
     }
+
 }

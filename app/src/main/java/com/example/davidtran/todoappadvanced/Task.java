@@ -11,19 +11,22 @@ import java.util.Date;
 
 public class Task extends AppCompatActivity{
 
-    private int _ID;
-    private String ItemTitle;
 
-    private Date DueDate;
+    private String ItemTitle;
+    private String DueDate;
+    private String DueTime;
     private String Detail;
-    private String PriorityLevel;
+    private int PriorityLevel;
     private boolean Status;
 
+    public String getDueTime() {
+        return DueTime;
+    }
     public String getItemTitle() {
         return ItemTitle;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return DueDate;
     }
 
@@ -31,31 +34,35 @@ public class Task extends AppCompatActivity{
         return Detail;
     }
 
-    public String getPriorityLevel() {
+    public int getPriorityLevel() {
         return PriorityLevel;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return Status;
     }
 
-
-
     public Task(){
-        ItemTitle = "";
-       // DueDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+          ItemTitle = "";
+          DueDate = "none";
+          DueTime = "none";
           Detail = "";
-          PriorityLevel="";
+          PriorityLevel=2;      // 0 is low, 1 is medium, 2 is high
           Status = true;
     }
 
-
-    public Task(String ItemTitle, String PriorityLevel) {
+    public Task(String ItemTitle, String DueDate,String DueTime,String Detail,int PriorityLevel,boolean Status) {
 
         this.ItemTitle = ItemTitle;
+        this.DueDate = DueDate;
+        this.DueTime = DueTime;
+        this.Detail = Detail;
         this.PriorityLevel = PriorityLevel;
+        this.Status = Status;
 
 
     }
+
+
 
 }

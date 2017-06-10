@@ -1,31 +1,38 @@
 package com.example.davidtran.todoappadvanced;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by davidtran on 6/7/17.
  */
+
 
 public class DBManager extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "TaskDB.db";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE Task" + " (" +
-                    "ID INTEGER PRIMARY KEY," +
+            "CREATE TABLE IF NOT EXISTS Tasks" + " (" +
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Title TEXT," +
+                    "DueDate Text," +
+                    "DueTime Text,"+
+                    "Detail Text," +
+                    "PriorityLevel INTEGER," +
+                    "Status NUMBERIC)" ;
 
-                    "Title TEXT" +
-                    "Description TEXT" +
-                    "DueDate DATE" +
-                    "String Detail;\n" +
-                    "String PriorityLevel;\n" +
-                    "Status;"
 
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + FeedEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS Tasks";
 
     public DBManager(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,7 +49,66 @@ public class DBManager extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-    public void saveTasktoDB(Task task){
+    public boolean saveTasktoDB(Task task){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues =  new ContentValues();
 
+
+        contentValues.put("Title",task.getItemTitle());
+        contentValues.put("DueDate", task.getDueDate());
+        contentValues.put("DueTime", task.getDueTime());
+        contentValues.put("Detail",task.getDetail());
+        contentValues.put("PriorityLevel", task.getPriorityLevel());
+        contentValues.put("Status",task.getStatus());
+
+
+        db.insert("Tasks",null,contentValues);
+        return true;
     }
+
+   public ArrayList<Task> FilterTasks(int id){
+       int index = 0;
+       ArrayList<Task> taskList = new ArrayList<Task>();
+
+       SQLiteDatabase db = this.getReadableDatabase();
+       Cursor res = db.rawQuery("Select * from Tasks where ID = "+id,null);
+       res.moveToFirst();
+
+       while(res.isAfterLast()==false){
+           boolean status = res.getInt(5) >0;
+           taskList.add(new Task(res.getString(0),res.getString(1),res.getString(2),res.getString(3),res.getInt(4),status));
+       }
+       return taskList;
+   }
+    public ArrayList<Task> getTaskList(){
+        int index = 0;
+        ArrayList<Task> taskList = new ArrayList<Task>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select * from Tasks",null);
+        res.moveToFirst();
+
+        while(res.isAfterLast()==false){
+
+            String Name = res.getString(1);
+            String Date = res.getString(2);
+            String Time = res.getString(3);
+            String Detail = res.getString(4);
+            int Priority = res.getInt(5);
+            boolean status = res.getInt(6) >0;
+            taskList.add(new Task(Name,Date,Time,Detail,Priority,status));
+            Log.i("My log: number of task:",""+index++);
+            res.moveToNext();
+        }
+        Log.i("My log: Task list:","");
+        for (Task t:taskList
+             ) {
+            Log.i("My log:","name:"+t.getItemTitle());
+        }
+
+        return taskList;
+    }
+
+
 }
+

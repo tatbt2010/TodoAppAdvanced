@@ -5,12 +5,14 @@
     android:weightSum="1">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtTaskName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Task Name"
         android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:paddingTop="20dp" />
 
     <LinearLayout
@@ -18,17 +20,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:weightSum="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="Priority"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/sp_Priority"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/priority_list"
+            android:paddingLeft="20dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Priority" />
+            android:text="Finish?"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
-        <ExpandableListView
-            android:layout_width="308dp"
-            android:layout_height="31dp" />
+        <CheckBox
+            android:id="@+id/cb_Finish"
+            style="@android:style/Widget.DeviceDefault.Light.CompoundButton.CheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -39,29 +67,36 @@
 
         <TextView
             android:id="@+id/tv_dateset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="94dp"
+            android:layout_height="31dp"
+            android:layout_weight="0.01"
+            android:width="1dp"
             android:paddingLeft="10dp"
             android:text="Date empty" />
 
         <Button
             android:id="@+id/setDateBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set Date" />
+            android:layout_height="match_parent"
+            android:width="1dp"
+            android:text="Set Date"
+            android:layout_weight="0.02" />
 
         <TextView
             android:id="@+id/tv_timeset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.66"
+            android:layout_weight="0.20"
+            android:width="1dp"
+            android:paddingLeft="10dp"
             android:text="Time empty" />
 
         <Button
             android:id="@+id/setTimeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:width="1dp"
             android:text="Set time" />
 
     </LinearLayout>

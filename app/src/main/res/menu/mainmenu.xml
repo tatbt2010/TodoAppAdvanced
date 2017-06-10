@@ -14,6 +14,18 @@
         android:id="@+id/AddItem"
         android:icon="@drawable/ic_additem"
         android:title="Add more item"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/SaveItem"
+        android:icon="@drawable/ic_save"
+        android:title="Save item"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/CancelEdit"
+        android:icon="@drawable/ic_cancel"
+        android:title="Cancel Edit"
+        app:showAsAction="always"
         />
 </menu>

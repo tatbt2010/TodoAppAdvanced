@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,36 +23,32 @@ public class ListItemFragment extends Fragment{
 
     ArrayList<Task> arrayList;
     ListView listView;
+    DBManager dbManager;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_listitem, container, false);
-
         listView = (ListView) view.findViewById(R.id.ListItem);
+        this.view = view;
         arrayList = new ArrayList<Task>();
-        MyCustomAdapter myCustomAdapter;
-
-        arrayList.add(new Task("code nua code mai","High"));
-        arrayList.add(new Task("code nua code mai 1","Normal"));
-        arrayList.add(new Task("code nua code mai 2","Low"));
-
-        for (Task a:arrayList) {
-            Log.i("My log:",""+a.getItemTitle()+","+a.getPriorityLevel());
-        }
-        myCustomAdapter = new MyCustomAdapter(arrayList);
-        listView.setAdapter(myCustomAdapter);
-
+        dbManager = new DBManager(getActivity());
+        getListTask();
         return view;
+    }
+    private boolean getListTask(){
+        MyCustomAdapter myCustomAdapter;
+        ArrayList<Task> taskList = dbManager.getTaskList();
+        myCustomAdapter = new MyCustomAdapter(taskList);
+        listView.setAdapter(myCustomAdapter);
+        return true;
     }
     private class MyCustomAdapter extends BaseAdapter {
         public ArrayList<Task> listnewsDataAdapter;
 
-
-
         public MyCustomAdapter(ArrayList<Task> listnewsDataAdapter){
             this.listnewsDataAdapter = listnewsDataAdapter;
-
 
         }
         @Override
@@ -74,15 +72,34 @@ public class ListItemFragment extends Fragment{
             View myView = mInflater.inflate(R.layout.layout_item,null);
 
             final Task s = listnewsDataAdapter.get(position);
+            String Title = s.getItemTitle();
+            int Priority = s.getPriorityLevel();
+            String sPriority = "";
+            switch (Priority){
+                case 0: sPriority = "Low"; break;
+                case 1: sPriority = "Medium"; break;
+                case 2: sPriority = "High"; break;
+                default: sPriority = "";
+            }
 
             TextView txtitemTitle = (TextView) myView.findViewById(R.id.itemTitle);
-            txtitemTitle.setText(s.getItemTitle());
+            txtitemTitle.setText(Title);
 
             TextView txtPriority = (TextView) myView.findViewById(R.id.Priority);
-            txtPriority.setText(s.getPriorityLevel());
+
+            txtPriority.setText(sPriority);
 
 
             return myView;
         }
     }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.Search).setVisible(true); // You can change the state of the menu item here if you call getActivity().supportInvalidateOptionsMenu(); somewhere in your code
+        menu.findItem(R.id.AddItem).setVisible(true);
+        menu.findItem(R.id.SaveItem).setVisible(false);
+        menu.findItem(R.id.CancelEdit).setVisible(false);
+    }
+
 }
