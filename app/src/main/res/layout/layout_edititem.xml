@@ -101,6 +101,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="---Task Detail ---"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/txtTaskDetail"
         android:layout_width="match_parent"

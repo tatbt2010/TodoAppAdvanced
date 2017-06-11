@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<Task> arrayList;
-    ListView listView;
+
 
 
     @Override
@@ -90,26 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void setupListViewListener(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(MainActivity.this, EditItemFragment.class);
-                i.putExtra("itemdata", arrayList.get(position).getItemTitle());
-                i.putExtra("posItem",position);
-                startActivityForResult(i, 2);
-            }
-        });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                arrayList.remove(position);
-                listView.invalidateViews();
-               // writeItems();     // write database
-                return true;
-            }
-        });
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 /**
  * Created by davidtran on 6/6/17.
  */
@@ -38,10 +40,14 @@ public class EditItemFragment extends Fragment {
     TextView tvTime;
     Spinner spPriority;
     CheckBox cbisFinish;
-
+    int itemIndex;
     DBManager dbManager;
+    Task TaskForEdit;
+    boolean isEdited;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View view= inflater.inflate(R.layout.layout_edititem, container, false);
         setDateBtn = (Button) view.findViewById(R.id.setDateBtn);
         setTimeBtn = (Button) view.findViewById(R.id.setTimeBtn);
@@ -53,7 +59,19 @@ public class EditItemFragment extends Fragment {
         spPriority = (Spinner) view.findViewById(R.id.sp_Priority);
         cbisFinish = (CheckBox) view.findViewById(R.id.cb_Finish);
         dbManager = new DBManager(getActivity());
-        
+
+
+        try {
+            itemIndex = getArguments().getInt("itemIndex");
+            getTaskforEdit();
+            isEdited = true;
+            Log.i("My log:","edit fragment opened for edit item");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("My log:","edit fragment opened for add item");
+            itemIndex = -1;
+            isEdited = false;
+        }
 
         setHasOptionsMenu(true);
 
@@ -104,6 +122,10 @@ public class EditItemFragment extends Fragment {
 
     }
     private boolean saveTask(){
+        if(isEdited){
+            TaskForEdit = getArguments().getParcelable("TaskToEdit");
+            dbManager.deleteTaskfromDB(TaskForEdit.get_ID());
+        }
         String Name = txtTaskName.getText().toString();
         String Date = tvDate.getText().toString();
         String Time = tvTime.getText().toString();
@@ -123,5 +145,16 @@ public class EditItemFragment extends Fragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment).commit();
+    }
+    private void getTaskforEdit(){
+        TaskForEdit = getArguments().getParcelable("TaskToEdit");
+
+        txtTaskName.setText(TaskForEdit.getItemTitle());
+
+        tvTime.setText(TaskForEdit.getDueTime());
+        tvDate.setText(TaskForEdit.getDueDate());
+        txtDetail.setText(TaskForEdit.getDetail());
+        cbisFinish.setChecked(TaskForEdit.getStatus());
+        spPriority.setSelection(TaskForEdit.getPriorityLevel());
     }
 }
